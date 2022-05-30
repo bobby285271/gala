@@ -72,7 +72,7 @@ public class Gala.Tooltip : Clutter.Actor {
             red = (uint8) text_rgba.red * uint8.MAX,
             green = (uint8) text_rgba.green * uint8.MAX,
             blue = (uint8) text_rgba.blue * uint8.MAX,
-            alpha = (uint8) text_rgba.alpha * uint8.MAX,
+            alpha = (uint8) text_rgba.alpha * uint8.MAX
         };
     }
 
