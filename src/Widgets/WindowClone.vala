@@ -414,21 +414,12 @@ public class Gala.WindowClone : Clutter.Actor {
      * according to their given allocations. The first two are placed in a way
      * that compensates for invisible borders of the texture.
      */
-#if HAS_MUTTER338
     public override void allocate (Clutter.ActorBox box) {
         base.allocate (box);
-#else
-    public override void allocate (Clutter.ActorBox box, Clutter.AllocationFlags flags) {
-        base.allocate (box, flags);
-#endif
 
         foreach (var child in get_children ()) {
             if (child != clone && child != active_shape)
-#if HAS_MUTTER338
                 child.allocate_preferred_size (child.fixed_x, child.fixed_y);
-#else
-                child.allocate_preferred_size (flags);
-#endif
         }
 
         Clutter.ActorBox shape_alloc = {
@@ -437,11 +428,7 @@ public class Gala.WindowClone : Clutter.Actor {
             box.get_width () + ACTIVE_SHAPE_SIZE,
             box.get_height () + ACTIVE_SHAPE_SIZE
         };
-#if HAS_MUTTER338
         active_shape.allocate (shape_alloc);
-#else
-        active_shape.allocate (shape_alloc, flags);
-#endif
 
         if (clone == null || dragging)
             return;
@@ -456,11 +443,7 @@ public class Gala.WindowClone : Clutter.Actor {
                           (input_rect.y - outer_rect.y) * scale_factor);
         alloc.set_size (actor.width * scale_factor, actor.height * scale_factor);
 
-#if HAS_MUTTER338
         clone.allocate (alloc);
-#else
-        clone.allocate (alloc, flags);
-#endif
     }
 
     public override bool button_press_event (Clutter.ButtonEvent event) {
@@ -892,13 +875,8 @@ public class Gala.WindowClone : Clutter.Actor {
             return false;
         }
 
-#if HAS_MUTTER338
         public override void allocate (Clutter.ActorBox box) {
             base.allocate (box);
-#else
-        public override void allocate (Clutter.ActorBox box, Clutter.AllocationFlags flags) {
-            base.allocate (box, flags);
-#endif
             color = InternalUtils.get_theme_accent_color ();
             background_canvas.set_size ((int) box.get_width (), (int) box.get_height ());
             background_canvas.invalidate ();
