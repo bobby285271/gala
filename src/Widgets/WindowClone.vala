@@ -412,13 +412,8 @@ public class Gala.WindowClone : Clutter.Actor {
      * according to their given allocations. The first two are placed in a way
      * that compensates for invisible borders of the texture.
      */
-#if HAS_MUTTER338
     public override void allocate (Clutter.ActorBox box) {
         base.allocate (box);
-#else
-    public override void allocate (Clutter.ActorBox box, Clutter.AllocationFlags flags) {
-        base.allocate (box, flags);
-#endif
 
         var input_rect = window.get_buffer_rect ();
         var outer_rect = window.get_frame_rect ();
@@ -430,11 +425,7 @@ public class Gala.WindowClone : Clutter.Actor {
             outer_rect.width * scale_factor + ACTIVE_SHAPE_SIZE,
             outer_rect.height * scale_factor + ACTIVE_SHAPE_SIZE
         };
-#if HAS_MUTTER338
         active_shape.allocate (shape_alloc);
-#else
-        active_shape.allocate (shape_alloc, flags);
-#endif
 
         active_shape.set_scale_factor (scale_factor);
 
@@ -882,13 +873,8 @@ public class Gala.WindowClone : Clutter.Actor {
             return width == 0 || height == 0 || (width == last_width && height == last_height);
         }
 
-#if HAS_MUTTER338
         public override void allocate (Clutter.ActorBox box) {
             base.allocate (box);
-#else
-        public override void allocate (Clutter.ActorBox box, Clutter.AllocationFlags flags) {
-            base.allocate (box, flags);
-#endif
             var width = (int) box.get_width ();
             var height = (int) box.get_height ();
 
